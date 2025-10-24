@@ -1,0 +1,200 @@
+❯ dclf worker
+pdf-extractor-worker  | /usr/local/lib/python3.12/site-packages/celery/platforms.py:841: SecurityWarning: You're running the worker with superuser privileges: this is
+pdf-extractor-worker  | absolutely not recommended!
+pdf-extractor-worker  |
+pdf-extractor-worker  | Please specify a different user using the --uid option.
+pdf-extractor-worker  |
+pdf-extractor-worker  | User information: uid=0 euid=0 gid=0 egid=0
+pdf-extractor-worker  |
+pdf-extractor-worker  |   warnings.warn(SecurityWarning(ROOT_DISCOURAGED.format(
+pdf-extractor-worker  | Database URL: postgresql://postgres:oJwAm7hPVE@pdf-extraction-db:5432/pdf_extraction
+pdf-extractor-worker  | Async Database URL: postgresql+asyncpg://postgres:oJwAm7hPVE@pdf-extraction-db:5432/pdf_extraction
+pdf-extractor-worker  |
+pdf-extractor-worker  |  -------------- celery@f3806594b10c v5.5.3 (immunity)
+pdf-extractor-worker  | --- ***** -----
+pdf-extractor-worker  | -- ******* ---- Linux-6.8.0-85-generic-x86_64-with-glibc2.41 2025-10-24 09:11:37
+pdf-extractor-worker  | - *** --- * ---
+pdf-extractor-worker  | - ** ---------- [config]
+pdf-extractor-worker  | - ** ---------- .> app:         pdf_extraction:0x7fffe5344830
+pdf-extractor-worker  | - ** ---------- .> transport:   redis://redis:6379/0
+pdf-extractor-worker  | - ** ---------- .> results:     redis://redis:6379/1
+pdf-extractor-worker  | - *** --- * --- .> concurrency: 4 (prefork)
+pdf-extractor-worker  | -- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+pdf-extractor-worker  | --- ***** -----
+pdf-extractor-worker  |  -------------- [queues]
+pdf-extractor-worker  |                 .> celery           exchange=celery(direct) key=celery
+pdf-extractor-worker  |
+pdf-extractor-worker  |
+pdf-extractor-worker  | [tasks]
+pdf-extractor-worker  |   . src.tasks.process_document_with_extractor
+pdf-extractor-worker  |
+pdf-extractor-worker  | [2025-10-24 09:11:40,619: INFO/MainProcess] Connected to redis://redis:6379/0
+pdf-extractor-worker  | [2025-10-24 09:11:40,651: INFO/MainProcess] mingle: searching for neighbors
+pdf-extractor-worker  | [2025-10-24 09:11:41,692: INFO/MainProcess] mingle: all alone
+pdf-extractor-worker  | [2025-10-24 09:11:41,725: INFO/MainProcess] celery@f3806594b10c ready.
+pdf-extractor-worker  | [2025-10-24 09:13:17,934: INFO/MainProcess] Task src.tasks.process_document_with_extractor[5d931939-b59e-4294-82f9-33ec3c913fd6] received
+pdf-extractor-worker  | [2025-10-24 09:13:17,943: INFO/MainProcess] Task src.tasks.process_document_with_extractor[7f2fc14d-437d-48a7-bb49-151ae885b566] received
+pdf-extractor-worker  | [2025-10-24 09:13:17,947: INFO/MainProcess] Task src.tasks.process_document_with_extractor[c15df998-748c-49b4-ba84-3f578d1678a8] received
+pdf-extractor-worker  | [2025-10-24 09:13:17,950: INFO/MainProcess] Task src.tasks.process_document_with_extractor[19d0c07a-aae9-4ed6-a4c7-6980ebb8179b] received
+pdf-extractor-worker  | [2025-10-24 09:13:17,963: INFO/MainProcess] Task src.tasks.process_document_with_extractor[f5e9e4ff-51d5-43b5-9d85-a950254cbaa1] received
+pdf-extractor-worker  | [2025-10-24 09:13:18,285: ERROR/ForkPoolWorker-1] Task src.tasks.process_document_with_extractor[7f2fc14d-437d-48a7-bb49-151ae885b566] raised unexpected: DatabaseError('(psycopg2.DatabaseError) error with status PGRES_TUPLES_OK and no message from the libpq')
+pdf-extractor-worker  | Traceback (most recent call last):
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+pdf-extractor-worker  |     self.dialect.do_execute(
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+pdf-extractor-worker  |     cursor.execute(statement, parameters)
+pdf-extractor-worker  | psycopg2.DatabaseError: error with status PGRES_TUPLES_OK and no message from the libpq
+pdf-extractor-worker  |
+pdf-extractor-worker  | The above exception was the direct cause of the following exception:
+pdf-extractor-worker  |
+pdf-extractor-worker  | Traceback (most recent call last):
+pdf-extractor-worker  |   File "/app/src/tasks.py", line 154, in process_document_with_extractor
+pdf-extractor-worker  |     db.execute(
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+pdf-extractor-worker  |     return self._execute_internal(
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+pdf-extractor-worker  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+pdf-extractor-worker  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/bulk_persistence.py", line 1660, in orm_execute_statement
+pdf-extractor-worker  |     return super().orm_execute_statement(
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+pdf-extractor-worker  |     result = conn.execute(
+pdf-extractor-worker  |              ^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+pdf-extractor-worker  |     return meth(
+pdf-extractor-worker  |            ^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+pdf-extractor-worker  |     return connection._execute_clauseelement(
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+pdf-extractor-worker  |     ret = self._execute_context(
+pdf-extractor-worker  |           ^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+pdf-extractor-worker  |     return self._exec_single_context(
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+pdf-extractor-worker  |     self._handle_dbapi_exception(
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+pdf-extractor-worker  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+pdf-extractor-worker  |     self.dialect.do_execute(
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+pdf-extractor-worker  |     cursor.execute(statement, parameters)
+pdf-extractor-worker  | sqlalchemy.exc.DatabaseError: (psycopg2.DatabaseError) error with status PGRES_TUPLES_OK and no message from the libpq
+pdf-extractor-worker  | [SQL: UPDATE document_extraction_jobs SET status=%(status)s, start_time=%(start_time)s WHERE document_extraction_jobs.uuid = %(uuid_1)s]
+pdf-extractor-worker  | [parameters: {'status': <ExtractionStatus.PROCESSING: 'Processing'>, 'start_time': datetime.datetime(2025, 10, 24, 9, 13, 17, 993485, tzinfo=datetime.timezone.utc), 'uuid_1': '655bc71b-9856-4c0b-bcdd-6cfcb685f59b'}]
+pdf-extractor-worker  | (Background on this error at: https://sqlalche.me/e/20/4xp6)
+pdf-extractor-worker  |
+pdf-extractor-worker  | During handling of the above exception, another exception occurred:
+pdf-extractor-worker  |
+pdf-extractor-worker  | Traceback (most recent call last):
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1145, in _commit_impl
+pdf-extractor-worker  |     self.engine.dialect.do_commit(self.connection)
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 714, in do_commit
+pdf-extractor-worker  |     dbapi_connection.commit()
+pdf-extractor-worker  | psycopg2.DatabaseError: error with status PGRES_TUPLES_OK and no message from the libpq
+pdf-extractor-worker  |
+pdf-extractor-worker  | The above exception was the direct cause of the following exception:
+pdf-extractor-worker  |
+pdf-extractor-worker  | Traceback (most recent call last):
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/celery/app/trace.py", line 453, in trace_task
+pdf-extractor-worker  |     R = retval = fun(*args, **kwargs)
+pdf-extractor-worker  |                  ^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/celery/app/trace.py", line 736, in __protected_call__
+pdf-extractor-worker  |     return self.run(*args, **kwargs)
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/app/src/tasks.py", line 294, in process_document_with_extractor
+pdf-extractor-worker  |     db.commit()
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+pdf-extractor-worker  |     trans.commit(_to_root=True)
+pdf-extractor-worker  |   File "<string>", line 2, in commit
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+pdf-extractor-worker  |     ret_value = fn(self, *arg, **kw)
+pdf-extractor-worker  |                 ^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1320, in commit
+pdf-extractor-worker  |     trans.commit()
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2632, in commit
+pdf-extractor-worker  |     self._do_commit()
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2737, in _do_commit
+pdf-extractor-worker  |     self._connection_commit_impl()
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2708, in _connection_commit_impl
+pdf-extractor-worker  |     self.connection._commit_impl()
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1147, in _commit_impl
+pdf-extractor-worker  |     self._handle_dbapi_exception(e, None, None, None, None)
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+pdf-extractor-worker  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1145, in _commit_impl
+pdf-extractor-worker  |     self.engine.dialect.do_commit(self.connection)
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 714, in do_commit
+pdf-extractor-worker  |     dbapi_connection.commit()
+pdf-extractor-worker  | sqlalchemy.exc.DatabaseError: (psycopg2.DatabaseError) error with status PGRES_TUPLES_OK and no message from the libpq
+pdf-extractor-worker  | (Background on this error at: https://sqlalche.me/e/20/4xp6)
+pdf-extractor-worker  | [2025-10-24 09:13:18,355: INFO/ForkPoolWorker-4] Found credentials in environment variables.
+pdf-extractor-worker  | 2025-10-24 09:13:18.381 | ERROR    | src.tasks:process_document_with_extractor:301 - Infrastructure failure for MarkItDown - NOT RETRYING: (psycopg2.DatabaseError) error with status PGRES_TUPLES_OK and no message from the libpq
+pdf-extractor-worker  | [SQL: UPDATE document_extraction_jobs SET status=%(status)s, start_time=%(start_time)s WHERE document_extraction_jobs.uuid = %(uuid_1)s]
+pdf-extractor-worker  | [parameters: {'status': <ExtractionStatus.PROCESSING: 'Processing'>, 'start_time': datetime.datetime(2025, 10, 24, 9, 13, 17, 994191, tzinfo=datetime.timezone.utc), 'uuid_1': 'b77b9815-fea3-4c22-9f79-2d2eae3294a8'}]
+pdf-extractor-worker  | (Background on this error at: https://sqlalche.me/e/20/4xp6)
+pdf-extractor-worker  | 2025-10-24 09:13:18.402 | INFO     | src.file_coordinator:mark_task_failed:128 - Marked failed task b77b9815-fea3-4c22-9f79-2d2eae3294a8 for cleanup (dev mode)
+pdf-extractor-worker  | [2025-10-24 09:13:18,453: ERROR/ForkPoolWorker-2] Task src.tasks.process_document_with_extractor[19d0c07a-aae9-4ed6-a4c7-6980ebb8179b] raised unexpected: DatabaseError('(psycopg2.DatabaseError) error with status PGRES_TUPLES_OK and no message from the libpq')
+pdf-extractor-worker  | Traceback (most recent call last):
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+pdf-extractor-worker  |     self.dialect.do_execute(
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+pdf-extractor-worker  |     cursor.execute(statement, parameters)
+pdf-extractor-worker  | psycopg2.DatabaseError: error with status PGRES_TUPLES_OK and no message from the libpq
+pdf-extractor-worker  |
+pdf-extractor-worker  | The above exception was the direct cause of the following exception:
+pdf-extractor-worker  |
+pdf-extractor-worker  | Traceback (most recent call last):
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/celery/app/trace.py", line 453, in trace_task
+pdf-extractor-worker  |     R = retval = fun(*args, **kwargs)
+pdf-extractor-worker  |                  ^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/celery/app/trace.py", line 736, in __protected_call__
+pdf-extractor-worker  |     return self.run(*args, **kwargs)
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/app/src/tasks.py", line 154, in process_document_with_extractor
+pdf-extractor-worker  |     db.execute(
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+pdf-extractor-worker  |     return self._execute_internal(
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+pdf-extractor-worker  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+pdf-extractor-worker  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/bulk_persistence.py", line 1660, in orm_execute_statement
+pdf-extractor-worker  |     return super().orm_execute_statement(
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+pdf-extractor-worker  |     result = conn.execute(
+pdf-extractor-worker  |              ^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+pdf-extractor-worker  |     return meth(
+pdf-extractor-worker  |            ^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+pdf-extractor-worker  |     return connection._execute_clauseelement(
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+pdf-extractor-worker  |     ret = self._execute_context(
+pdf-extractor-worker  |           ^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+pdf-extractor-worker  |     return self._exec_single_context(
+pdf-extractor-worker  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+pdf-extractor-worker  |     self._handle_dbapi_exception(
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+pdf-extractor-worker  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+pdf-extractor-worker  |     self.dialect.do_execute(
+pdf-extractor-worker  |   File "/usr/local/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+pdf-extractor-worker  |     cursor.execute(statement, parameters)
+pdf-extractor-worker  | sqlalchemy.exc.DatabaseError: (psycopg2.DatabaseError) error with status PGRES_TUPLES_OK and no message from the libpq
+pdf-extractor-worker  | [SQL: UPDATE document_extraction_jobs SET status=%(status)s, start_time=%(start_time)s WHERE document_extraction_jobs.uuid = %(uuid_1)s]
+pdf-extractor-worker  | [parameters: {'status': <ExtractionStatus.PROCESSING: 'Processing'>, 'start_time': datetime.datetime(2025, 10, 24, 9, 13, 17, 994191, tzinfo=datetime.timezone.utc), 'uuid_1': 'b77b9815-fea3-4c22-9f79-2d2eae3294a8'}]
+pdf-extractor-worker  | (Background on this error at: https://sqlalche.me/e/20/4xp6)
+pdf-extractor-worker  | 2025-10-24 09:13:19.007 | INFO     | src.file_coordinator:download_to_shared_volume:71 - Downloaded file from S3 to shared volume: /app/shared_volume/470cff43-e7b6-4970-aead-309452e1d2f7_1c6e5697-2316-4cb7-952f-352a4c14b906_ChaosTrack_GAP_Report_on_OpenSource_LLMs__RAG_(v2).pdf
+pdf-extractor-worker  | 2025-10-24 09:13:19.014 | INFO     | src.tasks:process_document_with_extractor:184 - Using shared volume file: /app/shared_volume/470cff43-e7b6-4970-aead-309452e1d2f7_1c6e5697-2316-4cb7-952f-352a4c14b906_ChaosTrack_GAP_Report_on_OpenSource_LLMs__RAG_(v2).pdf
+pdf-extractor-worker  | [2025-10-24 09:13:19,342: WARNING/ForkPoolWorker-4] Extractor PDFPlumber produced 4 pages; sample keys: ['COMBINED', 'TABLE']
+pdf-extractor-worker  | 2025-10-24 09:13:19.366 | INFO     | src.tasks:process_document_with_extractor:271 - Successfully processed document 470cff43-e7b6-4970-aead-309452e1d2f7 with PDFPlumber
+pdf-extractor-worker  | 2025-10-24 09:13:19.368 | INFO     | src.file_coordinator:mark_task_complete:111 - Marked task 16bd74bd-d5cd-4886-b4e5-b26e30a682b3 as complete for document 470cff43-e7b6-4970-aead-309452e1d2f7
+pdf-extractor-worker  | [2025-10-24 09:13:19,374: INFO/ForkPoolWorker-4] Task src.tasks.process_document_with_extractor[c15df998-748c-49b4-ba84-3f578d1678a8] succeeded in 1.402059714004281s: None
