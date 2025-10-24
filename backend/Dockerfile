@@ -1,37 +1,28 @@
 FROM python:3.12-slim
 
-# Install Java and system dependencies
-# RUN apt-get update && \
-#    apt-get install -y default-jre && \
-#    apt-get clean
-
-# Install PostgreSQL client & dev headers and build tools
+# Install system dependencies in a single layer to reduce image size
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     python3-dev \
- && rm -rf /var/lib/apt/lists/*
-
-# Install Tesseract OCR
-RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     tesseract-ocr-eng \
  && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
+# Set working directory in the container
 WORKDIR /app
 
-# Copy requirements and install
+# Copy requirements.txt (adjust the path if your Dockerfile is in the backend folder)
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 
 # Install Python dependencies
-# RUN pip install tabula-py JPype1
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app code
+# Copy the rest of the application code
 COPY . .
 
-# Expose the FastAPI port
+# Expose port 8000 for FastAPI app
 EXPOSE 8000
 
+# Use Gunicorn to run the FastAPI app with Uvicorn workers
 CMD ["gunicorn", "src.main:app", "-k", "uvicorn.workers.UvicornWorker", "--workers", "4", "--bind", "0.0.0.0:8000"]
